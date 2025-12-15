@@ -1,42 +1,25 @@
-Go Web Scraper
+# Go Web Scraper
 
-Bu proje, Go (Golang) dili kullanılarak verilen bir web sitesinin
+Bu proje, **Go (Golang)** dili kullanılarak bir web sitesinin HTML içeriğini, ekran görüntüsünü ve sayfadaki linkleri çekip yerel dosyalara kaydeden bir **Web Scraper** uygulamasıdır.
 
-HTML içeriğini,
+---
 
-ekran görüntüsünü,
+## Özellikler
 
-sayfadaki linkleri
+- 🎯 **Hedef URL’yi komut satırından alır**
+- 🌐 **HTTP bağlantı durumunu kontrol eder**
+- 💾 **Sayfanın HTML içeriğini kaydeder**
+- 📸 **Sayfanın ekran görüntüsünü alır**
+- 🔗 **Sayfadaki tüm linkleri listeler**
 
-çekip yerel dosyalara kaydeden bir web scraper uygulamasıdır.
+---
 
+## Gereksinimler
 
-Özellikler
+- Go (Golang)
+- Google Chrome
+- Go kütüphanesi: chromedp
 
-+Hedef URL’yi komut satırından alır
-
-+HTTP bağlantı durumunu kontrol eder
-
-+Sayfanın HTML içeriğini kaydeder
-
-+Sayfanın ekran görüntüsünü alır
-
-+Sayfadaki tüm linkleri listeler
-
-
-
-Gereksinimler
-
-+Go (Golang)
-
-+Google Chrome
-
-+chromedp kütüphanesi
-
-Kullanım
-```bash
-go run main.go https://örnekurl.com
-```
 
 
 
