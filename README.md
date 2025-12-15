@@ -33,3 +33,7 @@ Program çalıştığında, zaman damgalı bir klasör oluşturur ve aşağıdak
 
 `links.txt` → Sayfada bulunan linkler
 
+## 📬 İletişim
+
+📧 **[muhammedharunseker@gmail.com](mailto:muhammedharunseker@gmail.com)**
+
