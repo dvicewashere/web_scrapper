@@ -1,0 +1,634 @@
+<html lang="tr"><head>
+  <meta charset="utf-8">
+  <title>Muhammed Harun ŞEKER</title>
+  <link rel="icon" href="yanaq.ico" type="image/x-icon">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet">
+
+  <style>
+    /* Sadece Dil Butonunun Konumlandırması */
+    .utility-buttons {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+    
+    /* Dil Butonu Stili */
+    .lang-toggle {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #ff4757;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      outline: none;
+    }
+
+    .lang-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+    }
+    
+    /* --- Temel Stiller (Koyu Mod) --- */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top left, #0f0f0f, #1a1a1a, #0d0d0d);
+      color: #fff;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    /* Background animated particles */
+    .particles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 71, 87, 0.8);
+      border-radius: 50%;
+      animation: float 8s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      50% { transform: translateY(-100px) scale(1.2); opacity: 0.6; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    /* Sections */
+    section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero {
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      z-index: 2;
+    }
+
+    .hero.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .portfolio-section {
+      opacity: 0;
+      transform: translateY(100px);
+      transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      pointer-events: none;
+      z-index: 1;
+      overflow-y: auto;
+    }
+
+    .portfolio-section.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      z-index: 3;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: #ff4757;
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    .hero h1 span {
+      color: #ff4757;
+    }
+
+    .typing {
+      font-size: 1.5rem;
+      margin-top: 10px;
+      color: #ccc;
+      border-right: 3px solid #ff4757;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(30, end) forwards, blink 0.8s infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 22ch; }
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { border-color: transparent; }
+      25%, 75% { border-color: #ff4757; }
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 20px auto;
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 12px 24px;
+      border: 2px solid #ff4757;
+      color: #ff4757;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 2s;
+      cursor: pointer;
+    }
+
+    .button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,71,87,0.3);
+      transition: left 0.4s ease;
+      z-index: -1;
+    }
+
+    .button:hover::before {
+      left: 0;
+    }
+
+    .button:hover {
+      background: #ff4757;
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 71, 87, 0.4);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Sosyal ikonlar */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+      gap: 25px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 2.5s;
+    }
+
+    .social-icon {
+      width: 35px;
+      height: 35px;
+      filter: invert(100%);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .social-icon:hover {
+      transform: scale(1.2);
+      filter: invert(60%) sepia(100%) saturate(500%) hue-rotate(340deg);
+    }
+
+    /* Portfolio Section */
+    .portfolio-content {
+      width: 100%;
+      /* BAŞLIK İNDİRME AYARI KORUNDU */
+      padding: 160px 20px 20px; 
+    }
+
+    .portfolio-header {
+      margin-bottom: 50px;
+    }
+
+    .portfolio-header h2 {
+      font-size: 3rem;
+      color: #ff4757;
+      margin-bottom: 10px;
+    }
+
+    .portfolio-header p {
+      color: #ccc;
+      font-size: 1.1rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 71, 87, 0.2);
+      border-radius: 15px;
+      padding: 30px;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 71, 87, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .project-card:hover::before {
+      left: 100%;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      border-color: #ff4757;
+      box-shadow: 0 15px 40px rgba(255, 71, 87, 0.3);
+    }
+
+    .project-number {
+      color: #ff4757;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .project-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .project-desc {
+      color: #aaa;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      padding: 5px 12px;
+      background: rgba(255, 71, 87, 0.1);
+      border: 1px solid #ff4757;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #ff4757;
+    }
+
+    .back-button {
+      margin: 50px auto 30px;
+      padding: 12px 24px;
+      border: 2px solid #555;
+      color: #ccc;
+      background: transparent;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .back-button:hover {
+      background: #555;
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(85, 85, 85, 0.3);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #666;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 71, 87, 0.1);
+      margin-top: 50px;
+    }
+
+    .footer a {
+      color: #ff4757;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer a:hover {
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .utility-buttons {
+        top: 15px;
+        right: 15px;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .typing {
+        font-size: 1.2rem;
+      }
+
+      .portfolio-header h2 {
+        font-size: 2rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="utility-buttons">
+    <button class="lang-toggle" id="langToggle">TR</button>
+  </div>
+
+  <div class="particles">
+    <div class="particle" style="top:10%; left:20%; animation-delay:0s;"></div>
+    <div class="particle" style="top:50%; left:70%; animation-delay:1s;"></div>
+    <div class="particle" style="top:80%; left:40%; animation-delay:2s;"></div>
+    <div class="particle" style="top:30%; left:90%; animation-delay:3s;"></div>
+  </div>
+
+  <section class="hero" id="heroSection">
+    <div class="hero-sub" data-tr="// Hello, World!" data-en="// Hello, World!">// Hello, World!</div>
+    <h1>Muhammed Harun <span>ŞEKER</span></h1>
+    <div class="typing" data-tr="Beyaz Takkeli Tornacı" data-en="Cyber ​​Security Expert" style="width: 0px; animation: 4s steps(30) 0s 1 normal forwards running typing, 0.8s ease 0s infinite normal none running blink;">Beyaz Takkeli Tornacı</div>
+    
+    <p data-tr="Her durum muvacehesinde halisane duyguları ile fahimâne yorum yapan, Makyavelizmi postmodern sürrealiteyle harmanlamış, sükuneti deliliğinden olan frankofonisi az, mükemmeliyetçiliği çok, ütopik olduğu söylenen bir pc uzmanı." data-en="I got lazy to write the description in English. :) ">Her durum muvacehesinde halisane duyguları ile fahimâne yorum yapan, Makyavelizmi postmodern sürrealiteyle harmanlamış, sükuneti deliliğinden olan frankofonisi az, mükemmeliyetçiliği çok, ütopik olduğu söylenen bir pc uzmanı.</p>
+    <a class="button" id="portfolioBtn" data-tr="Portfolio Görüntüle" data-en="View Portfolio">Portfolio Görüntüle</a>
+    
+
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/muhammed-harun-şeker/" target="_blank" title="LinkedIn">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" class="social-icon">
+      </a>
+      <a href="https://instagram.com/muhammedharunseker" target="_blank" title="Instagram">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-icon">
+      </a>
+      <a href="https://github.com/dvicewashere" target="_blank" title="GitHub">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub" class="social-icon">
+      </a>
+      
+    </div>
+           <div class="footer">
+      <p>
+                       </p><p>muhammedharunseker@gmail.com</p>
+          <span data-tr="© Kodlama: " data-en="© Coded By ">© Coded By </span>
+          <a href="https://dvice.harunseker.com/" target="_blank">Dvice</a>
+      <p></p>
+  </div>
+  </section>
+  
+  <section class="portfolio-section" id="portfolioSection">
+    <div class="portfolio-content">
+      <div class="portfolio-header">
+        
+        <h2 data-tr="Projelerim" data-en="My Projects">Projelerim</h2> 
+        <p data-tr="Üzerinde çalıştığım ve tamamladığım projeler" data-en="Projects I have worked on and completed">Üzerinde çalıştığım ve tamamladığım projeler</p>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-number">// 01</div>
+          <h3 class="project-title" data-tr="Stok Takip" data-en="Inventory Tracking">Stok Takip</h3>
+          <p class="project-desc" data-tr="Bu proje, Python + Tkinter kullanılarak geliştirilmiş modern stok takip uygulamasıdır." data-en="This project is a modern inventory tracking application developed using Python + Tkinter.">Bu proje, Python + Tkinter kullanılarak geliştirilmiş modern stok takip uygulamasıdır.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">sqlite3</span>
+            <span class="tag">tkinter</span>
+            <span class="tag">matplotlib</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-number">// 02</div>
+          <h3 class="project-title" data-tr="Google Maps Scrapper" data-en="Google Maps Scraper">Google Maps Scrapper</h3>
+          <p class="project-desc" data-tr="Google Maps Scraper, şehir ve sektör bilgisine göre Google maps üzerinden işletme verilerini (isim, adres, telefon, e-posta, sosyal medya) otomatik olarak çeken bir araçtır." data-en="Google Maps Scraper is a tool that automatically extracts business data (name, address, phone, email, social media) from Google Maps based on city and sector information.">Google Maps Scraper, şehir ve sektör bilgisine göre Google maps üzerinden işletme verilerini (isim, adres, telefon, e-posta, sosyal medya) otomatik olarak çeken bir araçtır.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">sqlite3</span>
+            <span class="tag">pandas</span>
+            <span class="tag">selenium</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-number">// 03</div>
+          <h3 class="project-title" data-tr="Discord Onaylı Bot" data-en="Verified Discord Bot">Discord Onaylı Bot</h3>
+          <p class="project-desc" data-tr="Discord onaylı bot, moderasyon, server guard, yedekleme ve denetim gibi kapsamlı yönetim özellikleri sunar." data-en="The verified Discord bot offers comprehensive management features such as moderation, server guard, backup, and auditing.">Discord onaylı bot, moderasyon, server guard, yedekleme ve denetim gibi kapsamlı yönetim özellikleri sunar.</p>
+          <div class="project-tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">Discord.api</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">Canvas</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-number">// 04</div>
+          <h3 class="project-title" data-tr="Bilet Satın Alma" data-en="Buying bus tickets">Bilet Satın Alma</h3>
+          <p class="project-desc" data-tr="🚌 Sefer Yönetimi • 🪑 Koltuk Seçimi • 🎫 Kupon Sistemi • 💰 Sanal Kredi • 🖼️ Logo Yükleme • 📄 PDF Bilet • 🔐 Güvenlik • 🌐 Türkçe" data-en="🚌" trip="" management="" •="" 🪑="" seat="" selection="" 🎫="" coupon="" system="" 💰="" virtual="" credit="" 🖼️="" logo="" upload="" 📄="" pdf="" ticket="" 🔐="" security="" •""="">🚌 Sefer Yönetimi • 🪑 Koltuk Seçimi • 🎫 Kupon Sistemi • 💰 Sanal Kredi • 🖼️ Logo Yükleme • 📄 PDF Bilet • 🔐 Güvenlik • 🌐 Türkçe</p>
+          <div class="project-tags">
+            <span class="tag">Php</span>
+            <span class="tag">sqlite3</span>
+            <span class="tag">hmtl</span>
+            <span class="tag">css</span>
+            <span class="tag">javascript</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-number">// 05</div>
+          <h3 class="project-title" data-tr="Eklenecek" data-en="To Be Added">Eklenecek</h3>
+          <p class="project-desc" data-tr="" data-en=""></p>
+          <div class="project-tags">
+            <span class="tag">Angular</span>
+            <span class="tag">NestJS</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-number">// 06</div>
+          <h3 class="project-title" data-tr="Eklenecek" data-en="To Be Added">Eklenecek</h3>
+          <p class="project-desc" data-tr="" data-en=""></p>
+          <div class="project-tags">
+            <span class="tag">Flutter</span>
+            <span class="tag">OpenWeather API</span>
+            <span class="tag">SQLite</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="back-button" id="backBtn" data-tr="Ana Sayfaya Dön" data-en="Go Back to Home">Ana Sayfaya Dön</button>
+
+      <div class="footer">
+                    <p>muhammedharunseker@gmail.com</p>
+          <span data-tr="© Kodlama: " data-en="© Coded By ">© Coded By </span>
+          <a href="https://dvice.harunseker.com/" target="_blank">Dvice</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const portfolioBtn = document.getElementById('portfolioBtn');
+    const backBtn = document.getElementById('backBtn');
+    const heroSection = document.getElementById('heroSection');
+    const portfolioSection = document.getElementById('portfolioSection');
+    const langToggle = document.getElementById('langToggle');
+
+    // --- Dil Verileri ve Fonksiyonları ---
+    const translatableElements = document.querySelectorAll('[data-tr], [data-en]');
+    const defaultLang = 'tr';
+    
+    // 1. Dil Yükleme
+    function loadLanguage() {
+      // Yerel depolama kontrolü, yoksa varsayılan dil 'tr'
+      const currentLang = localStorage.getItem('language') || defaultLang;
+      setLanguage(currentLang);
+    }
+    
+    // 2. Dili Değiştirme ve Metinleri Güncelleme
+    function setLanguage(lang) {
+      localStorage.setItem('language', lang);
+      langToggle.textContent = lang.toUpperCase(); // Buton metnini EN/TR olarak ayarla
+
+      translatableElements.forEach(el => {
+        const key = `data-${lang}`;
+        const translation = el.getAttribute(key);
+        
+        if (translation !== null) {
+             // Metin İçeriği Güncelleme
+            if (el.tagName === 'A' || el.tagName === 'BUTTON' || el.tagName === 'P' || el.tagName === 'H2' || el.tagName === 'H3' || el.tagName === 'DIV') {
+                el.textContent = translation;
+            }
+        }
+      });
+      
+      // Typing efekti için özel durum:
+      const typingElement = document.querySelector('.typing');
+      if(typingElement) {
+        typingElement.style.width = '0';
+        typingElement.textContent = typingElement.getAttribute(`data-${lang}`);
+        typingElement.style.animation = 'none'; 
+        void typingElement.offsetWidth; // Reflow zorla
+        typingElement.style.animation = 'typing 4s steps(30, end) forwards, blink 0.8s infinite';
+      }
+    }
+    
+    // 3. Dil Değiştirme Olayı
+    langToggle.addEventListener('click', () => {
+      const currentLang = localStorage.getItem('language') || defaultLang;
+      const newLang = currentLang === 'tr' ? 'en' : 'tr';
+      setLanguage(newLang);
+    });
+
+    // --- Sayfa Yükleme Olayları ---
+    document.addEventListener('DOMContentLoaded', () => {
+        loadLanguage(); // Dili yükle
+    });
+
+    // --- Portföy Geçiş Olayları ---
+    portfolioBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      heroSection.classList.add('fade-out');
+
+      setTimeout(() => {
+        portfolioSection.classList.add('active');
+        portfolioSection.scrollTop = 0;
+      }, 500);
+    });
+
+    backBtn.addEventListener('click', () => {
+      portfolioSection.classList.remove('active');
+      
+      setTimeout(() => {
+        heroSection.classList.remove('fade-out');
+      }, 500);
+    });
+  </script>
+
+
+</body></html>
